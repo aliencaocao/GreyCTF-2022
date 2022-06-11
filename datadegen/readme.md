@@ -1,7 +1,6 @@
 # Misc - Data Degeneration - 388pts
 
-Description:
-
+## Description:
 Generating data is ez but recovering is >< I lost the `mean` I used to generate it, can you find the most probable one for me? #bigdata #helpmepliz
 
 ## Problem statement
@@ -46,7 +45,7 @@ data.txt (first few numbers):
 14.590720623953896, 13.304617884694125, -12.46088315693506, 16.289667599315155, -12.200764900343449, 0.3487516705903966, 0.3119365529880864, 16.085068714189497, 2.7489599201432666, 2.7757957599808485, 13.596380499683574, 16.490255564823975
 ```
 
-By analyzing `chall.py`, we can came up with a few conclusions:
+By analyzing `chall.py`, we can come up with a few conclusions:
 1. The numbers are generated from 3 different normal distributions.
 2. Each distribution has a different mean that is also randomly generated and each generated mean is numerically relatively far from each other (e.g. the means differs by a large margin relative to the mean's actual value).
 

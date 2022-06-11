@@ -6,7 +6,6 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 # Fix chrome crash
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--utility-and-browser")
 
 # Disable download window popup
 prefs = {"download.default_directory": "./",
