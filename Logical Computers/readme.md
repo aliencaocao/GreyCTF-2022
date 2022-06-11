@@ -54,7 +54,7 @@ As I do have some experience with machine learning, I will explain the faster me
 
 ## Solving
 
-Let's first analyse what the model does. It takes in a string of unknown length (we can find out the expected length later by inspecting the weights of the first layer), pass it through a linear layer that has 1280 neurons, and then pass it through a custom activation function. The output shape of the first linear layer is (1280,) and the output shape of the second linear layer is (1,). The custom activation function simply changes all negative numbers (including zero) to -1 and all positive numbers to 1.
+Let's first analyse what the model does. It takes in a string of unknown length (we can find out the expected length later by inspecting the error messages), pass it through a linear layer that has 1280 neurons, and then pass it through a custom activation function. This is repeated twice. The output shape of the first linear layer is (1280,) and the output shape of the second linear layer is (1,). The custom activation function simply changes all negative numbers (including zero) to -1 and all positive numbers to 1.
 
 A `linear` layer is a matrix multiplication between the input and the weights, then added to the biases. E.g. `y = wx + b`, where `y` is the output, `x` is the input, `w` is weights, `b` is biases. This resembles a linear graph `y = mx + c`, thus the name `linear` layer.
 
@@ -70,7 +70,7 @@ Knowing this, we can manually change the `in_dim` parameter to `160` to load the
 
 We can access the weights of a PyTorch layer by accessing the `weight.T` attribute of the `layer` object. E.g. the weight matrix of the first linear layer can be accessed using `model.layer1.weight.T`.
 
-Now comes the important part that allows us to quickly reverse the model: PyTorch models are saved with gradient information. This means that we can use `torch.matmul` to do matrix multiplication between the weights and another matrix in both directions. If we want to do a forward pass (input -> output), we put the input in the first argument of `torch.matmul` and the weights in the second argument. If we want to do a backward pass (output -> input), we put the output in the first argument and the weights in the second argument. Our goal here is a backward pass, or simply reverse of the forward pass.
+Now comes the important part that allows us to quickly reverse the model: PyTorch models are saved with gradient information. This means that we can use `torch.matmul` to do matrix multiplication between the weights and another matrix in both directions. If we want to do a forward pass (input -> output), we put the input in the first argument of `torch.matmul` and the weights in the second argument. If we want to do a backward pass (output -> input), we put the weights in the first argument and the outputs in the second argument. Our goal here is a backward pass, or simply reverse of the forward pass.
 
 We can reverse this step by step:
 1. Create a `torch.Tensor` that contains only an integer `1`. This is our expected output.
